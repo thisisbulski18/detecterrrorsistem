@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Status Akun - Interface Clone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #E8E2D2; /* Warna background cream */
+            color: #000;
+        }
+
+        /* Header / Logo Area */
+        header {
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .user-info a {
+            color: #000;
+            text-decoration: underline;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-text {
+            font-family: 'Times New Roman', serif;
+            font-size: 60px;
+            letter-spacing: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .logo-icon {
+            font-size: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #D6D6D6;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            color: #444;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .nav-item.active {
+            text-decoration: underline;
+            color: #000;
+        }
+
+        /* Sub Navigation / Steps */
+        .sub-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 0;
+        }
+
+        .step-pill {
+            background-color: #B0B0B0;
+            padding: 8px 40px;
+            border-radius: 20px;
+            color: #777;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .step-pill.active {
+            background-color: #D6D6D6;
+            color: #000;
+            border: 1px solid #999;
+            text-decoration: underline;
+        }
+
+        /* Main Layout Grid */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Left Content */
+        .main-content {
+            flex: 2;
+        }
+
+        .message-box {
+            border: 1px solid #000;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.1); /* Transparan dikit */
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .box-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: block;
+            color: #555;
+        }
+
+        .system-note {
+            font-size: 14px;
+            line-height: 1.6;
+            font-weight: bold;
+        }
+
+        .red-text { color: red; }
+        .green-text { color: green; }
+
+        .contact-link {
+            color: red;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .important-note {
+            text-align: left;
+            background-color: #D6D6D6;
+        }
+
+        .important-note ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .important-note li {
+            margin-bottom: 10px;
+        }
+
+        /* Right Sidebar */
+        .sidebar {
+            flex: 1;
+            border: 1px solid #000;
+            border-radius: 30px;
+            padding: 0;
+            background-color: #D6D6D6;
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #999;
+            font-size: 14px;
+        }
+
+        .account-list {
+            padding: 10px 20px;
+        }
+
+        .account-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .account-item:last-child {
+            border-bottom: none;
+        }
+
+        .account-icon {
+            color: red;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .locked-status {
+            color: red;
+            margin-left: 5px;
+        }
+
+        .sidebar-warning {
+            text-align: center;
+            color: #B22222; /* Dark red */
+            font-weight: bold;
+            padding: 10px;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        .timer-box {
+            background-color: #808080;
+            text-align: center;
+            padding: 15px;
+            margin: 10px 20px 30px 20px;
+            border-radius: 10px;
+            border: 1px solid #000;
+        }
+
+        .timer-title {
+            color: red;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .timer-time {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 10px;
+            color: #555;
+            border-top: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        
+        .footer-logos span {
+            margin: 0 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="user-info">
+            <i class="fas fa-user-circle"></i> HI, Mr. Alexander Ethan S.H
+            <a href="#">LOGOUT</a>
+        </div>
+        <div class="logo-container">
+            <!-- Menggunakan text untuk simulasi logo -->
+            <span class="logo-icon"><i class="far fa-copyright"></i></span>
+            <span class="logo-text">GUCCI</span>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-item">BERANDA</div>
+        <div class="nav-item">PILIHAN PRODUK</div>
+        <div class="nav-item">PEMBAYARAN</div>
+        <div class="nav-item">DETAIL PEKERJAAN</div>
+        <div class="nav-item">PEKERJAAN EXCLUSIVE</div>
+        <div class="nav-item active">STATUS AKUN</div>
+    </nav>
+
+    <div class="sub-nav">
+        <div class="step-pill active">DETEKSI SISTEM</div>
+        <div class="step-pill">VERIFIKASI DATA</div>
+        <div class="step-pill">PENGAJUAN</div>
+    </div>
+
+    <div class="container">
+        <!-- Main Content Left -->
+        <main class="main-content">
+            <!-- Box 1: System Notification -->
+            <div class="message-box">
+                <span class="box-title"><i class="fas fa-link"></i> CATATAN PEMBERITAHUAN SISTEM !</span>
+                <div class="system-note">
+                    <p>Pengguna melanggar aturan penarikan . Dan jumlah penarikan tidak sesuai dengan jumlah yang di tentukan</p>
+                    <br>
+                    <p>Jumlah yang ditarik perngguna <span class="red-text">Rp. 18.335.000</span></p>
+                    <p>Jumlah yang di tentukan oleh sistem <span class="green-text">Rp. 18.255.000</span></p>
+                    <br>
+                    <p>Yang menyebabkan sistem crash dan informasi jumlah hilang.Harap segera lakukan pemulihan akun untuk memulihkan data akun anda</p>
+                    <br>
+                    <a href="#" class="contact-link">(SILAHKAN HUBUNGI ADVISOR ATAU LAYANAN PELANGGAN)</a>
+                </div>
+            </div>
+
+            <!-- Box 2: Important Note -->
+            <div class="message-box important-note">
+                <span class="box-title" style="text-align: center; color: red;"><i class="fas fa-exclamation-circle"></i> CATATAN PENTING !</span>
+                <ul>
+                    <li>Dana yang dikirimkan kepada sistem GUCCI untuk pemulihan akun sepenuhnya dapat di tarik kembali ke rekening pengguna.</li>
+                    <li>Setiap dana yang di kirim oleh pengguna kepada sistem GUCCI akan secara otomatis dikonversi menjadi saldo akun Bisnis milik pengguna.</li>
+                    <li>Nominal yang di perlukan sebagai syarat pemulihan merupakan ketentuan yang telah ditetapkan oleh sistem.</li>
+                    <li>Setiap pengguna diwajibkan mengikuti prosedur yang telah ditetapkan untuk memperlancar proses pemulihan.</li>
+                    <li>Keputusan yang telah ditetapkan oleh sistem bersifat final dan tidak dapat di ganggu gugat.</li>
+                </ul>
+            </div>
+        </main>
+
+        <!-- Sidebar Right -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-user-cog"></i> STATUS AKUN - DETEKSI SISTEM
+            </div>
+            
+            <div class="account-list">
+                <div class="account-item">
+                    <i class="fas fa-exclamation-circle account-icon"></i>
+                    SAMANTHA <span class="locked-status">(TERKUNCI)</span>
+                </div>
+                <div class="account-item">
+                    <i class="fas fa-exclamation-circle account-icon"></i>
+                    WAHYU <span class="locked-status">(TERKUNCI)</span>
+                </div>
+                <div class="account-item">
+                    <i class="fas fa-exclamation-circle account-icon"></i>
+                    MEMBER <span class="locked-status">(TERKUNCI)</span>
+                </div>
+                <div class="account-item">
+                    <i class="fas fa-exclamation-circle account-icon"></i>
+                    WINDA <span class="locked-status">(TERKUNCI)</span>
+                </div>
+                <div class="account-item">
+                    <i class="fas fa-exclamation-circle account-icon"></i>
+                    DIPO <span class="locked-status">(TERKUNCI)</span>
+                </div>
+                <div class="account-item">
+                    <i class="fas fa-exclamation-circle account-icon"></i>
+                    TITI <span class="locked-status">(TERKUNCI)</span>
+                </div>
+            </div>
+
+            <div class="sidebar-warning">
+                (SEGERA LAKUKAN PEMULIHAN AKUN) <i class="fas fa-exclamation-triangle"></i>
+            </div>
+
+            <div class="timer-box">
+                <div class="timer-title">WAKTU PEMULIHAN</div>
+                <div class="timer-time">30 MENIT</div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-logos">
+            <span>GUCCI OSTERIA</span>
+            <span>PALAZZO</span>
+            <span>GUCCI</span>
+        </div>
+        <br>
+        <p>&copy; 2016 - 2025 GUCCIO GUCCI S.P.A. - ALL RIGHT RESERVERD. SIAE LICENCE# 2294/1/1936 AND</p>
+    </footer>
+
+</body>
+</html>
