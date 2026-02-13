@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
     
     <script>
       tailwind.config = {
@@ -23,12 +23,30 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; }
         .hidden { display: none !important; }
-        .user-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #e5e7eb; padding: 15px; min-width: 180px; display: none; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); z-index: 50; }
+        
+        .menu-overlay { background-color: rgba(255,255,255,0.98); }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            min-width: 180px;
+            display: none;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+        }
         .user-dropdown.active { display: block; }
 
-        #auth-screen { position: fixed; overflow: hidden; inset: 0; }
-        #auth-screen video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -1; transform: translateX(-50%) translateY(-50%); object-fit: cover; }
+        #auth-screen { position: fixed; overflow: hidden; }
+        #auth-screen video {
+            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            width: auto; height: auto; z-index: -1; transform: translateX(-50%) translateY(-50%); object-fit: cover;
+        }
 
+        /* --- CSS LUCKY SPIN --- */
         #wheel-container { position: relative; width: 280px; height: 280px; margin: 0 auto; }
         #wheelCanvas { width: 100%; height: 100%; border-radius: 50%; border: 5px solid #d4af37; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
         #wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 30px; z-index: 20; color: #d4af37; }
@@ -38,30 +56,35 @@
 
     <!-- ================= AUTH SCREEN ================= -->
     <div id="auth-screen" class="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-black">
-        <video autoplay muted loop playsinline>
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1548624268-80f4cb661c94?q=80&w=2070&auto=format&fit=crop">
             <source src="https://videos.pexels.com/video-files/7653676/7653676-hd_1920_1080_25fps.mp4" type="video/mp4">
         </video>
         <div class="absolute inset-0 bg-black/60 z-0"></div>
-        <div class="bg-white w-full max-w-sm p-8 shadow-2xl relative z-10 animate-fadeIn border-t-4 border-gucci-gold text-center">
-            <h1 class="text-3xl font-serif font-bold tracking-widest mb-2">GUCCI</h1>
-            <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-8">Private Client Access</p>
-
-            <div id="register-form" class="hidden">
-                <div class="space-y-4">
-                    <input type="text" id="reg-username" class="w-full border-b border-black py-2 text-sm focus:outline-none" placeholder="Username Baru">
-                    <input type="password" id="reg-password" class="w-full border-b border-black py-2 text-sm focus:outline-none" placeholder="Password Baru">
-                    <button onclick="handleRegister()" class="w-full bg-black text-white text-[11px] font-bold uppercase py-3 hover:bg-gucci-gold transition-colors tracking-widest">DAFTAR</button>
-                </div>
-                <p class="text-[10px] mt-4 text-gray-400">Punya akun? <span onclick="switchMode('login')" class="text-black font-bold cursor-pointer underline">Login</span></p>
+        <div class="bg-white w-full max-w-sm p-8 shadow-2xl relative z-10 animate-fadeIn border-t-4 border-gucci-gold">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-serif font-bold tracking-widest mb-2">GUCCI</h1>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-gray-500">Private Client Access</p>
             </div>
-
-            <div id="login-form" class="hidden">
+            <div id="register-form" class="hidden">
+                <h2 class="text-sm font-bold uppercase tracking-widest mb-4 text-center">Registration Form</h2>
+                <div class="bg-yellow-50 border border-yellow-200 p-3 mb-4 text-[10px] text-yellow-800">⚠️ One Device Can Only Create One Account.</div>
                 <div class="space-y-4">
-                    <input type="text" id="login-username" class="w-full border-b border-black py-2 text-sm focus:outline-none" placeholder="Username">
-                    <input type="password" id="login-password" class="w-full border-b border-black py-2 text-sm focus:outline-none" placeholder="Password">
-                    <button onclick="handleLogin()" class="w-full bg-black text-white text-[11px] font-bold uppercase py-3 hover:bg-gucci-gold transition-colors tracking-widest">MASUK</button>
+                    <input type="text" id="reg-username" class="w-full border-b border-black py-2 text-sm focus:outline-none focus:border-gucci-gold" placeholder="Create Username">
+                    <input type="password" id="reg-password" class="w-full border-b border-black py-2 text-sm focus:outline-none focus:border-gucci-gold" placeholder="Create Password">
+                    <button onclick="handleRegister()" class="w-full bg-black text-white text-[11px] font-bold uppercase tracking-[0.2em] py-3 mt-2 hover:bg-gucci-gold transition-colors">REGISTER</button>
                 </div>
-                <p class="text-[10px] mt-4 text-gray-400">Baru? <span onclick="switchMode('register')" class="text-black font-bold cursor-pointer underline">Daftar</span></p>
+                <p class="text-[10px] text-center mt-4 text-gray-400">Has account? <span onclick="switchMode('login')" class="text-black font-bold cursor-pointer underline">Login</span></p>
+            </div>
+            <div id="login-form" class="hidden">
+                <h2 class="text-sm font-bold uppercase tracking-widest mb-6 text-center">Welcome To Gucci</h2>
+                <div class="space-y-4">
+                    <input type="text" id="login-username" class="w-full border-b border-black py-2 text-sm focus:outline-none focus:border-gucci-gold" placeholder="Username">
+                    <input type="password" id="login-password" class="w-full border-b border-black py-2 text-sm focus:outline-none focus:border-gucci-gold" placeholder="Password">
+                    <button onclick="handleLogin()" class="w-full bg-black text-white text-[11px] font-bold uppercase tracking-[0.2em] py-3 mt-2 hover:bg-gucci-gold transition-colors">LOGIN</button>
+                </div>
+                <div id="reg-link-container" class="text-center mt-4">
+                    <p class="text-[10px] text-gray-400">New? <span onclick="switchMode('register')" class="text-black font-bold cursor-pointer underline">Register</span></p>
+                </div>
             </div>
         </div>
     </div>
@@ -69,142 +92,170 @@
     <!-- ================= MAIN APP ================= -->
     <div id="main-app" class="hidden flex flex-col min-h-screen">
         <header class="bg-white sticky top-0 z-40 border-b border-gray-100">
-            <div class="flex items-center justify-between px-4 py-6 md:px-8 bg-white">
-                <div class="text-3xl font-serif font-bold text-gucci-gold-dark tracking-widest">GUCCI</div>
-                <div class="flex items-center gap-4 md:gap-6">
-                    
-                    <!-- AREA IKON HEADER -->
-                    <div class="flex items-center gap-4">
-                        <!-- OFFICIAL SITE ICON -->
-                        <a href="https://www.gucci.com" target="_blank" title="Official Site" class="hover:opacity-60 pt-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                        </a>
-                        
-                        <!-- BUSINESS ACCOUNT ICON (MENGGANTIKAN TEKS PLATINUM) -->
-                        <a href="https://www.gcindo.one/" target="_blank" title="Business Account" class="hover:opacity-60 pt-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-                        </a>
-                    </div>
-
-                    <span id="current-lang-label" class="text-sm font-bold">ID</span>
-                    
+            <div class="flex items-center justify-between px-4 py-6 md:px-8 relative bg-white">
+                <div class="text-3xl md:text-4xl font-serif font-bold text-black tracking-[0.1em] cursor-default select-none text-gucci-gold-dark">GUCCI</div>
+                <div class="flex items-center gap-5 md:gap-7 text-black relative">
+                    <button onclick="openLangModal()" class="flex items-center gap-1 hover:opacity-60 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <span id="current-lang-label" class="text-sm font-semibold pt-0.5">ID</span>
+                    </button>
+                    <!-- Tombol Official Site -->
+                    <a href="https://www.gucci.com" target="_blank" title="Visit Official Site" class="hover:opacity-60 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </a>
+                    <!-- TOMBOL BUSINESS ACCOUNT (Briefcase Icon) -->
+                    <a href="https://www.gcindo.one/" target="_blank" title="Business Account" class="hover:opacity-60 transition-opacity pt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </a>
                     <div class="relative">
-                        <button onclick="toggleUserMenu()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+                        <button onclick="toggleUserMenu()" class="hover:opacity-60 transition-opacity pt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </button>
                         <div id="user-menu-dropdown" class="user-dropdown">
-                            <div class="text-xs font-bold mb-4 text-gucci-gold uppercase tracking-widest" id="display-username">USER</div>
-                            <button onclick="logout()" class="text-[10px] font-bold text-red-600 uppercase tracking-widest">LOGOUT</button>
+                            <div class="text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-1">Account</div>
+                            <div class="text-sm font-bold mb-4 truncate text-gucci-gold" id="display-username">USER</div>
+                            <div class="border-t border-gray-100 my-2"></div>
+                            <button onclick="logout()" class="w-full text-left text-[10px] font-bold uppercase tracking-widest text-red-600 hover:text-red-800">LOGOUT</button>
                         </div>
                     </div>
+                    <button onclick="openMenu()" class="hover:opacity-60 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
                 </div>
             </div>
-            <div class="py-2 border-t flex justify-center bg-gray-50/50">
-                <div id="level-indicator" class="text-[9px] font-bold border border-black px-4 py-0.5 rounded-full uppercase tracking-[0.2em]">AGENDA 1</div>
+            <div class="border-t border-gray-100 py-2 bg-white flex justify-center">
+                <div id="level-indicator" class="text-[10px] font-bold border border-black px-3 py-0.5 rounded-full uppercase tracking-widest">AGENDA 1</div>
             </div>
         </header>
 
-        <main class="flex-grow max-w-4xl mx-auto px-4 md:px-8 pt-4 w-full">
+        <main class="flex-grow max-w-4xl mx-auto px-4 md:px-8 pt-2 w-full relative">
             <div id="product-list-view" class="animate-fadeIn">
-                <div class="text-center mb-10">
-                    <h1 id="agenda-title" class="text-2xl font-serif font-bold tracking-widest uppercase">AGENDA 1</h1>
-                    <p class="text-[11px] italic text-gray-400 mt-2 tracking-wide">Eksplorasi koleksi eksklusif untuk klien privat.</p>
+                <div class="text-center mb-8 mt-4">
+                    <div id="read-only-banner" class="hidden mb-4 inline-block bg-green-50 text-green-800 text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full border border-green-200">✓ APPROVED</div>
+                    <h1 id="agenda-title" class="text-2xl font-bold font-serif tracking-widest mb-6 uppercase">AGENDA 1</h1>
+                    <div class="max-w-md mx-auto px-4">
+                        <h2 id="benefit-title" class="text-xl font-bold uppercase tracking-widest mb-2 text-black">BENEFIT 25% - 50%</h2>
+                        <p id="agenda-desc" class="text-xs md:text-sm font-medium leading-relaxed text-gray-900 italic">The House's curation includes fine fragrances for men and women, as well as designer beauty gift sets.</p>
+                    </div>
                 </div>
-                <div id="product-grid" class="grid grid-cols-2 gap-4 md:gap-10 pb-20"></div>
+                <div id="product-grid" class="grid grid-cols-2 gap-x-3 gap-y-8 md:gap-x-8 md:gap-y-12 pb-12"></div>
             </div>
 
-            <div id="confirmation-view" class="hidden animate-fadeIn pb-20">
-                <button onclick="goBack()" class="mb-6 text-[10px] font-bold text-gray-400 uppercase tracking-widest">← Kembali</button>
-                <div class="bg-white p-6 md:p-10 max-w-md mx-auto border shadow-sm">
-                    <img id="conf-img" src="" class="w-40 h-40 mx-auto object-contain mix-blend-multiply mb-6">
-                    <h3 id="conf-name" class="text-sm font-bold text-center uppercase tracking-widest mb-6">Produk</h3>
-                    <div class="space-y-3 text-xs border-y py-6 mb-6">
-                        <div class="flex justify-between"><span>Harga</span><span id="conf-price" class="font-bold"></span></div>
-                        <div class="flex justify-between"><span>Benefit</span><span class="text-green-600 font-bold">25-50%</span></div>
-                        <div class="flex justify-between text-sm font-bold pt-2 border-t"><span>Total Profit</span><span id="conf-profit"></span></div>
+            <div id="confirmation-view" class="hidden animate-fadeIn pb-12">
+                <div class="mb-8 mt-2"><button onclick="goBack()" class="flex items-center text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mr-2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg><span id="text-back">Reselect</span></button></div>
+                <div class="text-center mb-8"><h2 id="text-conf-title" class="text-2xl font-serif font-bold uppercase tracking-widest mb-2">Order Confirmation</h2><p id="text-conf-subtitle" class="text-xs text-gray-500">Review your selection</p></div>
+                <div class="bg-gray-50 p-4 md:p-8 max-w-md mx-auto rounded-sm">
+                    <div class="bg-white p-6 mb-6 relative flex justify-center items-center aspect-square shadow-sm"><div class="absolute top-0 left-0 bg-black text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5">Selected</div><img id="conf-img" src="" class="w-full h-full object-contain mix-blend-multiply"></div>
+                    <h3 id="conf-name" class="text-sm font-bold uppercase tracking-widest text-center mb-6 px-4">Product</h3>
+                    <div class="border-t border-gray-200 my-4"></div>
+                    <div class="space-y-3 text-xs font-medium tracking-wide"><div class="flex justify-between items-center"><span class="text-gray-500 uppercase">Price</span><span id="conf-price" class="font-bold">IDR 0</span></div><div class="flex justify-between items-center"><span class="text-gray-500 uppercase">Benefit</span><span id="conf-benefit" class="font-bold">0%</span></div></div>
+                    <div class="border-t border-gray-200 my-4"></div>
+                    <div class="flex justify-between items-center mb-8"><span class="text-sm font-bold uppercase tracking-widest">Total Profit</span><span id="conf-profit" class="text-sm font-bold">IDR 0</span></div>
+                    <div class="bg-yellow-50 border border-yellow-200 p-6 text-center mb-8 shadow-sm">
+                        <p id="text-transfer-label" class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-2">Please Transfer To</p>
+                        <div class="font-bold text-sm tracking-wide">BANK NEGARA INDONESIA</div>
+                        <div class="text-2xl font-serif font-bold text-gucci-gold my-1 tracking-widest">2018-725-219</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest text-black">A.N. RICKI RAHMADANI</div>
                     </div>
-                    
-                    <div class="bg-yellow-50/50 border border-yellow-100 p-6 text-center mb-8">
-                        <p class="text-[9px] font-bold text-gray-400 uppercase mb-1 tracking-widest">Silakan Transfer Ke</p>
-                        <p class="text-xs font-bold uppercase">Bank Negara Indonesia</p>
-                        <p class="text-2xl font-serif font-bold text-gucci-gold tracking-widest my-1">2018-725-219</p>
-                        <p class="text-[10px] font-bold uppercase tracking-widest">A.N RICKI RAHMADANI</p>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <h3 id="text-pay-title" class="text-xs font-bold uppercase tracking-widest mb-4 text-center text-black">Your Payment Details</h3>
+                        <div class="space-y-4">
+                            <input type="text" id="pay-bank" class="w-full border-b border-black py-2 text-sm bg-transparent focus:outline-none focus:border-gucci-gold" placeholder="Bank Name (Sender)">
+                            <input type="number" id="pay-number" class="w-full border-b border-black py-2 text-sm bg-transparent focus:outline-none focus:border-gucci-gold" placeholder="Account Number (Sender)">
+                            <input type="text" id="pay-name" class="w-full border-b border-black py-2 text-sm bg-transparent focus:outline-none focus:border-gucci-gold" placeholder="Account Holder Name">
+                        </div>
                     </div>
-
-                    <div class="space-y-4 mb-8">
-                        <input type="text" id="pay-bank" class="w-full border-b bg-transparent py-2 text-xs focus:outline-none" placeholder="Nama Bank Anda">
-                        <input type="number" id="pay-number" class="w-full border-b bg-transparent py-2 text-xs focus:outline-none" placeholder="Nomor Rekening Anda">
-                        <input type="text" id="pay-name" class="w-full border-b bg-transparent py-2 text-xs focus:outline-none" placeholder="Nama Pemilik Rekening">
-                    </div>
-
-                    <button onclick="confirmAndProgress()" class="w-full bg-black text-white py-4 text-[10px] font-bold tracking-[0.3em] uppercase">Konfirmasi Pesanan</button>
+                    <button onclick="confirmAndProgress()" class="w-full bg-black text-white text-[11px] font-bold uppercase tracking-[0.2em] py-4 mt-8 hover:opacity-80 transition-all">CONFIRM ORDER</button>
                 </div>
             </div>
 
             <div id="completed-view" class="hidden animate-fadeIn text-center pt-20">
-                <h2 class="text-3xl font-serif font-bold text-gucci-gold tracking-widest mb-4">SELESAI</h2>
-                <p class="text-sm text-gray-500 mb-8 px-10">Anda telah menyelesaikan seluruh agenda klien privat.</p>
-                <button onclick="window.open('https://wa.me/6285713176052')" class="bg-black text-white px-10 py-4 text-[10px] font-bold tracking-widest uppercase">Hubungi Admin</button>
+                 <div class="mb-6 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="text-gucci-gold"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div>
+                 <h2 class="text-3xl font-serif font-bold uppercase tracking-widest mb-4">COMPLETED</h2>
+                 <button onclick="window.open('https://wa.me/6285713176052', '_blank')" class="bg-gucci-gold text-black px-8 py-3 text-xs font-bold uppercase tracking-widest transition-colors">Contact Admin</button>
             </div>
         </main>
+
+        <footer class="mt-auto px-4 pb-8 md:px-8 text-black border-t border-gray-100 pt-8 text-center text-[10px] font-semibold text-gray-600">© 2016 - 2025 Guccio Gucci S.p.A.</footer>
     </div>
 
-    <!-- LUCKY SPIN MODAL -->
+    <!-- MODAL LUCKY SPIN -->
     <div id="lucky-spin-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md px-4">
         <div class="bg-white w-full max-w-sm p-8 text-center border-t-4 border-gucci-gold animate-fadeIn">
-            <h2 class="text-2xl font-serif font-bold tracking-widest uppercase mb-1">CONGRATULATIONS</h2>
-            <p id="spin-subtitle" class="text-[10px] text-gray-400 uppercase tracking-widest mb-8">Pencapaian Spesial</p>
-
+            <h2 class="text-2xl font-serif font-bold tracking-widest uppercase mb-1">REWARD ACHIEVEMENT</h2>
+            <p id="spin-subtitle" class="text-[10px] text-gray-400 uppercase tracking-widest mb-8">Special Gift</p>
             <div id="wheel-container" class="mb-10">
                 <div id="wheel-pointer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 24L2 10h20L12 24z"/></svg></div>
                 <canvas id="wheelCanvas" width="500" height="500"></canvas>
             </div>
-
-            <button id="spin-btn" onclick="startSpin()" class="w-full bg-black text-white py-4 text-xs font-bold tracking-[0.3em] hover:bg-gucci-gold transition-all uppercase">Putar Sekarang</button>
-
+            <button id="spin-btn" onclick="startSpin()" class="w-full bg-black text-white py-4 text-xs font-bold tracking-[0.3em] uppercase">SPIN NOW</button>
             <div id="spin-result" class="hidden mt-6 animate-fadeIn">
-                <p class="text-[10px] uppercase text-gray-400 mb-1">Hadiah Anda:</p>
+                <p class="text-[10px] uppercase text-gray-400 mb-1">Your Prize:</p>
                 <p id="prize-text" class="text-2xl font-bold text-gucci-gold uppercase tracking-wider mb-8"></p>
-                <button onclick="closeSpinAndContinue()" class="bg-black text-white px-10 py-3 text-[10px] font-bold tracking-widest uppercase">Klaim & Lanjut</button>
+                <button onclick="closeSpinAndContinue()" class="bg-black text-white px-10 py-3 text-[10px] font-bold tracking-widest uppercase">Claim & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENU & LANG MODAL (As per original) -->
+    <div id="agenda-menu" class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center menu-overlay animate-fadeIn">
+        <button onclick="closeMenu()" class="absolute top-6 right-6 p-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        <div id="menu-list" class="flex flex-col items-center space-y-6"></div>
+    </div>
+
+    <div id="lang-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+        <div class="bg-white w-full max-w-xs p-6 relative animate-fadeIn">
+            <button onclick="closeModals()" class="absolute top-2 right-2 text-xl">&times;</button>
+            <h2 class="text-lg font-serif font-bold uppercase tracking-widest mb-4 text-center">Select Language</h2>
+            <div class="grid grid-cols-2 gap-3 text-[10px] font-bold">
+                <button onclick="changeLanguage('en')" class="border py-3 hover:bg-black hover:text-white">English</button>
+                <button onclick="changeLanguage('id')" class="border py-3 hover:bg-black hover:text-white">Indonesia</button>
             </div>
         </div>
     </div>
 
     <script>
+        let currentLang = 'id'; 
         let currentLevel = 1;
         let currentProduct = {};
         const maxLevel = 5;
 
-        // --- NOMINAL HADIAH SESUAI LEVEL ---
+        // --- Logika Hadiah Spin Bertingkat ---
         const getPrizesForLevel = (level) => {
-            if (level === 1) return ["IDR 25.000", "IDR 40.000", "IDR 55.000", "IDR 75.000", "IDR 85.000", "IDR 100.000"];
-            if (level === 2) return ["IDR 50.000", "IDR 75.000", "IDR 100.000", "IDR 125.000", "IDR 140.000", "IDR 150.000"];
-            if (level === 3) return ["IDR 250.000", "IDR 450.000", "IDR 600.000", "IDR 800.000", "IDR 900.000", "IDR 1.000.000"];
-            return ["IDR 500.000", "IDR 1.000.000", "IDR 2.000.000", "BONUS 50%", "EXTRA CASH", "ACCESS VIP"];
+            if (level === 1) return ["IDR 25.000", "IDR 40.000", "IDR 60.000", "IDR 75.000", "IDR 90.000", "IDR 100.000"];
+            if (level === 2) return ["IDR 50.000", "IDR 75.000", "IDR 100.000", "IDR 115.000", "IDR 130.000", "IDR 150.000"];
+            if (level === 3) return ["IDR 250.000", "IDR 450.000", "IDR 600.000", "IDR 750.000", "IDR 900.000", "IDR 1.000.000"];
+            return ["IDR 500k", "IDR 1M", "BONUS VIP"];
         };
-
         const prizeColors = ["#000000", "#d4af37", "#1a1a1a", "#bfa030", "#262626", "#aa8a2e"];
+
+        const translations = {
+            en: { task: "AGENDA", desc: "Private fragrances curation.", back: "Back", confTitle: "Order Confirmation", confSub: "Review selection", btnConf: "CONFIRM ORDER", selectBtn: "Select", transferLabel: "Transfer To", payTitle: "Details", bank: "Bank", rek: "Account", name: "Name" },
+            id: { task: "AGENDA", desc: "Kurasi eksklusif untuk klien privat.", back: "Kembali", confTitle: "Konfirmasi Pesanan", confSub: "Konfirmasi di bawah", btnConf: "KONFIRMASI PESANAN", selectBtn: "Pilih", transferLabel: "Silakan Transfer Ke", payTitle: "Detail Pembayaran", bank: "Nama Bank", rek: "Nomor Rekening", name: "Atas Nama" }
+        };
 
         const img1 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1758137467/860787_AAEE7_7702_001_100_0000_Light.jpg";
         const img2 = "https://media.theperfumeshop.com/medias/sys_master/prd-images/hd7/h0a/10141209788446/prd-front-1318338_420x420/gucci-flora-gorgeous-orchid-eau-de-parfum-gift-set-420x420.jpg";
+        const img3 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1747845099/847090_FAEUC_9758_001_065_0000_Light.jpg";
         const img4 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1758728705/857595_FAFUF_9870_001_085_0000_Light.jpg";
+        const img5 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1744218003/497985_AAE5F_1642_001_100_0000_Light.jpg";
 
         const database = {
-            1: [ { name: "Horsebit Mini Bag", price: 100000, img: img1 }, { name: "Flora Orchid Set", price: 1020000, img: img2, recommended: true } ],
-            2: [ { name: "Ophidia Boston", price: 500000, img: img4 }, { name: "Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
-            3: [ { name: "Ace Sneaker", price: 1480000, img: img1 }, { name: "Diana Mini Tote", price: 2550000, img: img2, recommended: true } ],
-            4: [ { name: "Bamboo 1947", price: 2550000, img: img4 }, { name: "Exotic Leather", price: 5880000, img: img1, recommended: true } ],
-            5: [ { name: "Diamond Watch", price: 5999000, img: img1 }, { name: "High Jewelry Set", price: 10468000, img: img4, recommended: true } ]
+            1: [ { name: "Horsebit Mini", price: 100000, img: img1 }, { name: "Flora Orchid", price: 1020000, img: img2, recommended: true } ],
+            2: [ { name: "Gucci Belt", price: 500000, img: img5 }, { name: "GG Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
+            3: [ { name: "Ace Sneaker", price: 1480000, img: img3 }, { name: "Diana Mini", price: 2550000, img: img4, recommended: true } ],
+            4: [ { name: "Bamboo 1947", price: 2550000, img: img4 }, { name: "Horsebit 1955", price: 3738000, img: img5, recommended: true } ],
+            5: [ { name: "Diamond Watch", price: 5999000, img: img5 }, { name: "High Jewelry", price: 10468000, img: img4, recommended: true } ]
         };
 
-        window.onload = function() { checkSession(); };
+        window.onload = checkSession;
 
         function checkSession() {
-            const storedUser = localStorage.getItem('gucci_user');
-            const savedLevel = localStorage.getItem('gucci_level');
-            if(savedLevel) currentLevel = parseInt(savedLevel);
-            if (storedUser) {
+            const user = localStorage.getItem('gucci_user');
+            if (user) {
                 switchMode('login');
-                if(localStorage.getItem('gucci_session') === 'active') showMainApp(JSON.parse(storedUser).username);
-            } else { switchMode('register'); }
+                if(localStorage.getItem('gucci_session') === 'active') showMainApp(JSON.parse(user).username);
+            } else switchMode('register');
         }
 
         function switchMode(mode) {
@@ -213,74 +264,73 @@
         }
 
         function handleRegister() {
-            const user = document.getElementById('reg-username').value;
-            const pass = document.getElementById('reg-password').value;
-            if(!user || !pass) return alert("Isi data dengan lengkap!");
-            localStorage.setItem('gucci_user', JSON.stringify({ username: user, password: pass }));
+            const u = document.getElementById('reg-username').value;
+            const p = document.getElementById('reg-password').value;
+            if(!u || !p) return alert("Fill data");
+            localStorage.setItem('gucci_user', JSON.stringify({username:u, password:p}));
             localStorage.setItem('gucci_level', 1);
-            alert("Berhasil Daftar!"); switchMode('login');
+            alert("Registered!"); switchMode('login');
         }
 
         function handleLogin() {
-            const userIn = document.getElementById('login-username').value;
-            const passIn = document.getElementById('login-password').value;
-            const stored = JSON.parse(localStorage.getItem('gucci_user'));
-            if (stored && userIn === stored.username && passIn === stored.password) {
+            const u = document.getElementById('login-username').value;
+            const p = document.getElementById('login-password').value;
+            const s = JSON.parse(localStorage.getItem('gucci_user'));
+            if(s && u === s.username && p === s.password) {
                 localStorage.setItem('gucci_session', 'active');
-                showMainApp(stored.username);
-            } else alert("Kredensial Salah!");
+                showMainApp(u);
+            } else alert("Invalid");
         }
 
-        function showMainApp(username) {
+        function showMainApp(u) {
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
-            document.getElementById('display-username').innerText = username;
+            document.getElementById('display-username').innerText = u;
+            const savedLevel = localStorage.getItem('gucci_level');
+            if(savedLevel) currentLevel = parseInt(savedLevel);
             loadLevel(currentLevel);
         }
 
-        function formatRupiah(num) { return "IDR " + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+        function formatRupiah(n) { return "IDR " + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
 
-        function loadLevel(level) {
-            if (level > maxLevel) { showCompletion(); return; }
-            const items = database[level];
+        function loadLevel(lv, readOnly=false) {
+            if (lv > maxLevel) { showCompletionScreen(); return; }
+            const items = database[lv];
             const grid = document.getElementById('product-grid');
-            document.getElementById('agenda-title').innerText = `AGENDA ${level}`;
-            document.getElementById('level-indicator').innerText = `AGENDA ${level}`;
+            document.getElementById('agenda-title').innerText = `AGENDA ${lv}`;
+            document.getElementById('level-indicator').innerText = `AGENDA ${lv}`;
             grid.innerHTML = '';
-            items.forEach(item => {
-                const profit = Math.floor(item.price * (item.recommended ? 1.5 : 1.25));
-                grid.innerHTML += `<div class="border p-4 text-center bg-white"><img src="${item.img}" class="w-full h-32 object-contain mb-4 mix-blend-multiply transition-transform hover:scale-110"><h3 class="text-[10px] font-bold uppercase mb-2 leading-tight h-6 overflow-hidden">${item.name}</h3><p class="text-[9px] mb-4 text-gray-400 tracking-widest">${formatRupiah(item.price)}</p><button onclick="selectItem('${item.name}', '${item.price}', '${profit}', '${item.img}')" class="bg-black text-white text-[9px] font-bold py-2 px-6 uppercase tracking-widest hover:bg-gucci-gold transition-colors">Select</button></div>`;
+            items.forEach(it => {
+                const profit = Math.floor(it.price * (it.recommended ? 1.5 : 1.25));
+                grid.innerHTML += `<div class="border p-4 bg-white text-center"><img src="${it.img}" class="w-full h-32 object-contain mb-4 mix-blend-multiply"><h3 class="text-[10px] font-bold uppercase mb-2">${it.name}</h3><p class="text-[9px] mb-4 text-gray-400">${formatRupiah(it.price)}</p><button onclick="selectItem('${it.name}', '${it.price}', '${profit}', '${it.img}')" class="bg-black text-white text-[9px] font-bold py-2 px-6 uppercase tracking-widest ${readOnly?'hidden':''}">Select</button></div>`;
             });
             document.getElementById('product-list-view').classList.remove('hidden');
             document.getElementById('confirmation-view').classList.add('hidden');
-            document.getElementById('completed-view').classList.add('hidden');
         }
 
-        function selectItem(name, price, profit, img) {
-            currentProduct = { name, price: formatRupiah(price), profit: formatRupiah(profit), img };
-            document.getElementById('conf-name').innerText = name;
-            document.getElementById('conf-price').innerText = currentProduct.price;
-            document.getElementById('conf-profit').innerText = currentProduct.profit;
+        function selectItem(n, p, pr, img) {
+            currentProduct = { n, p: formatRupiah(p), pr: formatRupiah(pr), img };
+            document.getElementById('conf-name').innerText = n;
+            document.getElementById('conf-price').innerText = currentProduct.p;
+            document.getElementById('conf-profit').innerText = currentProduct.pr;
             document.getElementById('conf-img').src = img;
             document.getElementById('product-list-view').classList.add('hidden');
             document.getElementById('confirmation-view').classList.remove('hidden');
         }
 
-        function goBack() { document.getElementById('confirmation-view').classList.add('hidden'); document.getElementById('product-list-view').classList.remove('hidden'); }
-
         function confirmAndProgress() {
-            if(!document.getElementById('pay-bank').value || !document.getElementById('pay-name').value) return alert("Lengkapi data pembayaran!");
-            const waNum = (currentLevel === 1) ? "6282379079766" : "6282379079799";
-            window.open(`https://wa.me/${waNum}?text=Konfirmasi+Agenda+${currentLevel}+oleh+${document.getElementById('display-username').innerText}`, '_blank');
-            setTimeout(() => { showLuckySpin(); }, 1500);
+            if(!document.getElementById('pay-bank').value || !document.getElementById('pay-name').value) return alert("Fill payment details");
+            const wa = (currentLevel === 1) ? "6282379079766" : "6282379079799";
+            window.open(`https://wa.me/${wa}?text=Confirm+Agenda+${currentLevel}`, '_blank');
+            setTimeout(showLuckySpin, 1500);
         }
 
+        // --- Logika Spin ---
         function showLuckySpin() {
-            document.getElementById('spin-subtitle').innerText = `Achievement Agenda ${currentLevel}`;
+            document.getElementById('spin-subtitle').innerText = `Agenda ${currentLevel} Achievement`;
             document.getElementById('lucky-spin-modal').classList.remove('hidden');
             document.getElementById('spin-btn').classList.remove('hidden');
             document.getElementById('spin-result').classList.add('hidden');
-            document.getElementById('wheelCanvas').style.transform = `rotate(0deg)`;
             drawWheel();
         }
 
@@ -289,12 +339,11 @@
             const ctx = canvas.getContext('2d');
             const levelPrizes = getPrizesForLevel(currentLevel);
             const sliceAngle = (2 * Math.PI) / levelPrizes.length;
-
             ctx.clearRect(0, 0, 500, 500);
             for (let i = 0; i < levelPrizes.length; i++) {
                 ctx.beginPath(); ctx.moveTo(250, 250);
                 ctx.arc(250, 250, 250, i * sliceAngle, (i + 1) * sliceAngle);
-                ctx.fillStyle = prizeColors[i]; ctx.fill();
+                ctx.fillStyle = prizeColors[i % prizeColors.length]; ctx.fill();
                 ctx.save(); ctx.translate(250, 250); ctx.rotate(i * sliceAngle + sliceAngle / 2);
                 ctx.fillStyle = "white"; ctx.font = "bold 22px Inter";
                 ctx.fillText(levelPrizes[i].split(' ')[1], 120, 10); ctx.restore();
@@ -303,15 +352,13 @@
 
         function startSpin() {
             const canvas = document.getElementById('wheelCanvas');
-            const randomDegree = Math.floor(Math.random() * 360) + 3600;
-            canvas.style.transform = `rotate(${randomDegree}deg)`;
+            const deg = Math.floor(Math.random() * 360) + 3600;
+            canvas.style.transform = `rotate(${deg}deg)`;
             document.getElementById('spin-btn').disabled = true;
-
             setTimeout(() => {
-                const actualDegree = randomDegree % 360;
-                const levelPrizes = getPrizesForLevel(currentLevel);
-                const prizeIndex = Math.floor((360 - actualDegree) / (360 / levelPrizes.length)) % levelPrizes.length;
-                document.getElementById('prize-text').innerText = levelPrizes[prizeIndex];
+                const prizeArr = getPrizesForLevel(currentLevel);
+                const idx = Math.floor((360 - (deg % 360)) / (360 / prizeArr.length)) % prizeArr.length;
+                document.getElementById('prize-text').innerText = prizeArr[idx];
                 document.getElementById('spin-btn').classList.add('hidden');
                 document.getElementById('spin-result').classList.remove('hidden');
                 document.getElementById('spin-btn').disabled = false;
@@ -320,18 +367,28 @@
 
         function closeSpinAndContinue() {
             document.getElementById('lucky-spin-modal').classList.add('hidden');
-            currentLevel++;
-            localStorage.setItem('gucci_level', currentLevel);
+            currentLevel++; localStorage.setItem('gucci_level', currentLevel);
             loadLevel(currentLevel);
         }
 
-        function showCompletion() {
+        function showCompletionScreen() {
             document.getElementById('product-list-view').classList.add('hidden');
             document.getElementById('completed-view').classList.remove('hidden');
         }
 
         function toggleUserMenu() { document.getElementById('user-menu-dropdown').classList.toggle('active'); }
         function logout() { localStorage.removeItem('gucci_session'); location.reload(); }
+        function openMenu() { 
+            const list = document.getElementById('menu-list'); list.innerHTML = '';
+            for(let i=1; i<=maxLevel; i++){
+                list.innerHTML += `<div class="font-serif text-xl ${i===currentLevel?'font-bold':'text-gray-300'}">AGENDA ${i}</div>`;
+            }
+            document.getElementById('agenda-menu').classList.remove('hidden');
+        }
+        function closeMenu() { document.getElementById('agenda-menu').classList.add('hidden'); }
+        function openLangModal() { document.getElementById('lang-modal').classList.remove('hidden'); }
+        function closeModals() { document.getElementById('lang-modal').classList.add('hidden'); }
+        function goBack() { document.getElementById('confirmation-view').classList.add('hidden'); document.getElementById('product-list-view').classList.remove('hidden'); }
     </script>
 </body>
 </html>
