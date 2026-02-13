@@ -40,13 +40,26 @@
         }
         .user-dropdown.active { display: block; }
 
-        #auth-screen { position: fixed; overflow: hidden; }
-        #auth-screen video {
-            position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
-            width: auto; height: auto; z-index: -1; transform: translateX(-50%) translateY(-50%); object-fit: cover;
+        /* --- CSS KHUSUS VIDEO BACKGROUND --- */
+        #auth-screen {
+            position: fixed;
+            overflow: hidden; 
         }
 
-        /* --- CSS LUCKY SPIN --- */
+        #auth-screen video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; 
+            transform: translateX(-50%) translateY(-50%); 
+            object-fit: cover;
+        }
+
+        /* --- CSS TAMBAHAN LUCKY SPIN --- */
         #wheel-container { position: relative; width: 280px; height: 280px; margin: 0 auto; }
         #wheelCanvas { width: 100%; height: 100%; border-radius: 50%; border: 5px solid #d4af37; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
         #wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 30px; z-index: 20; color: #d4af37; }
@@ -103,10 +116,11 @@
                     <a href="https://www.gucci.com" target="_blank" title="Visit Official Site" class="hover:opacity-60 transition-opacity">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                     </a>
-                    <!-- TOMBOL BUSINESS ACCOUNT (Briefcase Icon) -->
+                    <!-- TOMBOL BUSINESS ACCOUNT (Ikon Tas) -->
                     <a href="https://www.gcindo.one/" target="_blank" title="Business Account" class="hover:opacity-60 transition-opacity pt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
                     </a>
+
                     <div class="relative">
                         <button onclick="toggleUserMenu()" class="hover:opacity-60 transition-opacity pt-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -172,7 +186,7 @@
             <div id="completed-view" class="hidden animate-fadeIn text-center pt-20">
                  <div class="mb-6 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="text-gucci-gold"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div>
                  <h2 class="text-3xl font-serif font-bold uppercase tracking-widest mb-4">COMPLETED</h2>
-                 <button onclick="window.open('https://wa.me/6285713176052', '_blank')" class="bg-gucci-gold text-black px-8 py-3 text-xs font-bold uppercase tracking-widest transition-colors">Contact Admin</button>
+                 <button onclick="window.open('https://wa.me/6285713176052', '_blank')" class="bg-gucci-gold text-black px-8 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">Contact Admin</button>
             </div>
         </main>
 
@@ -197,7 +211,7 @@
         </div>
     </div>
 
-    <!-- MENU & LANG MODAL (As per original) -->
+    <!-- MODALS MENU & LANG -->
     <div id="agenda-menu" class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center menu-overlay animate-fadeIn">
         <button onclick="closeMenu()" class="absolute top-6 right-6 p-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         <div id="menu-list" class="flex flex-col items-center space-y-6"></div>
@@ -208,8 +222,8 @@
             <button onclick="closeModals()" class="absolute top-2 right-2 text-xl">&times;</button>
             <h2 class="text-lg font-serif font-bold uppercase tracking-widest mb-4 text-center">Select Language</h2>
             <div class="grid grid-cols-2 gap-3 text-[10px] font-bold">
-                <button onclick="changeLanguage('en')" class="border py-3 hover:bg-black hover:text-white">English</button>
-                <button onclick="changeLanguage('id')" class="border py-3 hover:bg-black hover:text-white">Indonesia</button>
+                <button onclick="changeLanguage('en')" class="border py-3 hover:bg-black hover:text-white">English (EN)</button>
+                <button onclick="changeLanguage('id')" class="border py-3 hover:bg-black hover:text-white">Indonesia (ID)</button>
             </div>
         </div>
     </div>
@@ -220,11 +234,11 @@
         let currentProduct = {};
         const maxLevel = 5;
 
-        // --- Logika Hadiah Spin Bertingkat ---
+        // --- KONFIGURASI HADIAH SPIN ---
         const getPrizesForLevel = (level) => {
-            if (level === 1) return ["IDR 25.000", "IDR 40.000", "IDR 60.000", "IDR 75.000", "IDR 90.000", "IDR 100.000"];
-            if (level === 2) return ["IDR 50.000", "IDR 75.000", "IDR 100.000", "IDR 115.000", "IDR 130.000", "IDR 150.000"];
-            if (level === 3) return ["IDR 250.000", "IDR 450.000", "IDR 600.000", "IDR 750.000", "IDR 900.000", "IDR 1.000.000"];
+            if (level === 1) return ["IDR 25.000", "IDR 45.000", "IDR 60.000", "IDR 75.000", "IDR 85.000", "IDR 100.000"];
+            if (level === 2) return ["IDR 50.000", "IDR 75.000", "IDR 95.000", "IDR 115.000", "IDR 135.000", "IDR 150.000"];
+            if (level === 3) return ["IDR 250.000", "IDR 400.000", "IDR 550.000", "IDR 700.000", "IDR 850.000", "IDR 1.000.000"];
             return ["IDR 500k", "IDR 1M", "BONUS VIP"];
         };
         const prizeColors = ["#000000", "#d4af37", "#1a1a1a", "#bfa030", "#262626", "#aa8a2e"];
@@ -241,17 +255,19 @@
         const img5 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1744218003/497985_AAE5F_1642_001_100_0000_Light.jpg";
 
         const database = {
-            1: [ { name: "Horsebit Mini", price: 100000, img: img1 }, { name: "Flora Orchid", price: 1020000, img: img2, recommended: true } ],
-            2: [ { name: "Gucci Belt", price: 500000, img: img5 }, { name: "GG Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
-            3: [ { name: "Ace Sneaker", price: 1480000, img: img3 }, { name: "Diana Mini", price: 2550000, img: img4, recommended: true } ],
-            4: [ { name: "Bamboo 1947", price: 2550000, img: img4 }, { name: "Horsebit 1955", price: 3738000, img: img5, recommended: true } ],
-            5: [ { name: "Diamond Watch", price: 5999000, img: img5 }, { name: "High Jewelry", price: 10468000, img: img4, recommended: true } ]
+            1: [ { name: "Gucci Half Horsebit Mini", price: 100000, img: img1 }, { name: "Gucci Flora Orchid Set", price: 300000, img: img2 }, { name: "GG Emblem Nano Bucket", price: 550000, img: img3 }, { name: "Ophidia Boston Bag", price: 890000, img: img4, recommended: true } ],
+            2: [ { name: "Gucci Signature Belt", price: 440000, img: img5 }, { name: "Ophidia GG Card Case", price: 828000, img: img1 }, { name: "Gucci Savoy Duffle Mini", price: 1500000, img: img3 }, { name: "GG Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
+            3: [ { name: "Ace Embroidered Sneaker", price: 980000, img: img3 }, { name: "Gucci Diana Mini Tote", price: 1350000, img: img4 }, { name: "Jackie 1961 Shoulder Bag", price: 2550000, img: img1 }, { name: "Dionysus Small Bag", price: 5880000, img: img5, recommended: true } ],
+            4: [ { name: "Gucci Bamboo 1947", price: 1980000, img: img4 }, { name: "Attache Large Shoulder", price: 2350000, img: img2 }, { name: "Gucci Horsebit 1955", price: 3738000, img: img5 }, { name: "Exotic Leather Tote", price: 5880000, img: img1, recommended: true } ],
+            5: [ { name: "Gold Chain Necklace", price: 5237000, img: img2 }, { name: "Diamond Watch Series", price: 5999000, img: img5 }, { name: "Crocodile Horsebit Bag", price: 7546000, img: img3 }, { name: "Gucci High Jewelry Set", price: 10468000, img: img4, recommended: true } ]
         };
 
         window.onload = checkSession;
 
         function checkSession() {
             const user = localStorage.getItem('gucci_user');
+            const savedLevel = localStorage.getItem('gucci_level');
+            if(savedLevel) currentLevel = parseInt(savedLevel);
             if (user) {
                 switchMode('login');
                 if(localStorage.getItem('gucci_session') === 'active') showMainApp(JSON.parse(user).username);
@@ -279,55 +295,56 @@
             if(s && u === s.username && p === s.password) {
                 localStorage.setItem('gucci_session', 'active');
                 showMainApp(u);
-            } else alert("Invalid");
+            } else alert("Invalid Credentials");
         }
 
         function showMainApp(u) {
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
             document.getElementById('display-username').innerText = u;
-            const savedLevel = localStorage.getItem('gucci_level');
-            if(savedLevel) currentLevel = parseInt(savedLevel);
             loadLevel(currentLevel);
         }
 
-        function formatRupiah(n) { return "IDR " + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+        function formatRupiah(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
 
         function loadLevel(lv, readOnly=false) {
             if (lv > maxLevel) { showCompletionScreen(); return; }
             const items = database[lv];
+            const t = translations[currentLang];
             const grid = document.getElementById('product-grid');
             document.getElementById('agenda-title').innerText = `AGENDA ${lv}`;
             document.getElementById('level-indicator').innerText = `AGENDA ${lv}`;
             grid.innerHTML = '';
-            items.forEach(it => {
+            items.forEach((it, idx) => {
                 const profit = Math.floor(it.price * (it.recommended ? 1.5 : 1.25));
-                grid.innerHTML += `<div class="border p-4 bg-white text-center"><img src="${it.img}" class="w-full h-32 object-contain mb-4 mix-blend-multiply"><h3 class="text-[10px] font-bold uppercase mb-2">${it.name}</h3><p class="text-[9px] mb-4 text-gray-400">${formatRupiah(it.price)}</p><button onclick="selectItem('${it.name}', '${it.price}', '${profit}', '${it.img}')" class="bg-black text-white text-[9px] font-bold py-2 px-6 uppercase tracking-widest ${readOnly?'hidden':''}">Select</button></div>`;
+                grid.innerHTML += `<div class="flex flex-col border p-4 bg-white text-center"><img src="${it.img}" class="w-full h-32 object-contain mb-4 mix-blend-multiply"><h3 class="text-[10px] font-bold uppercase mb-2 leading-4">${it.name}</h3><p class="text-[9px] mb-4 text-gray-400">IDR ${formatRupiah(it.price)}</p><button onclick="selectItem('${it.name}', '${formatRupiah(it.price)}', '${it.recommended?'50%':'25%'}', '${formatRupiah(profit)}', '${it.img}')" class="bg-black text-white text-[9px] font-bold py-2 px-6 uppercase tracking-widest ${readOnly?'hidden':''}">Select</button></div>`;
             });
             document.getElementById('product-list-view').classList.remove('hidden');
             document.getElementById('confirmation-view').classList.add('hidden');
         }
 
-        function selectItem(n, p, pr, img) {
-            currentProduct = { n, p: formatRupiah(p), pr: formatRupiah(pr), img };
+        function selectItem(n, p, b, pr, img) {
+            currentProduct = { n, p, pr, img };
             document.getElementById('conf-name').innerText = n;
-            document.getElementById('conf-price').innerText = currentProduct.p;
-            document.getElementById('conf-profit').innerText = currentProduct.pr;
+            document.getElementById('conf-price').innerText = 'IDR ' + p;
+            document.getElementById('conf-benefit').innerText = b;
+            document.getElementById('conf-profit').innerText = 'IDR ' + pr;
             document.getElementById('conf-img').src = img;
             document.getElementById('product-list-view').classList.add('hidden');
             document.getElementById('confirmation-view').classList.remove('hidden');
         }
 
         function confirmAndProgress() {
-            if(!document.getElementById('pay-bank').value || !document.getElementById('pay-name').value) return alert("Fill payment details");
+            const bank = document.getElementById('pay-bank').value;
+            const name = document.getElementById('pay-name').value;
+            if(!bank || !name) return alert("Fill data");
             const wa = (currentLevel === 1) ? "6282379079766" : "6282379079799";
-            window.open(`https://wa.me/${wa}?text=Confirm+Agenda+${currentLevel}`, '_blank');
+            window.open(`https://wa.me/${wa}?text=Konfirmasi+Agenda+${currentLevel}`, '_blank');
             setTimeout(showLuckySpin, 1500);
         }
 
-        // --- Logika Spin ---
         function showLuckySpin() {
-            document.getElementById('spin-subtitle').innerText = `Agenda ${currentLevel} Achievement`;
+            document.getElementById('spin-subtitle').innerText = `Achievement Agenda ${currentLevel}`;
             document.getElementById('lucky-spin-modal').classList.remove('hidden');
             document.getElementById('spin-btn').classList.remove('hidden');
             document.getElementById('spin-result').classList.add('hidden');
@@ -337,16 +354,16 @@
         function drawWheel() {
             const canvas = document.getElementById('wheelCanvas');
             const ctx = canvas.getContext('2d');
-            const levelPrizes = getPrizesForLevel(currentLevel);
-            const sliceAngle = (2 * Math.PI) / levelPrizes.length;
-            ctx.clearRect(0, 0, 500, 500);
-            for (let i = 0; i < levelPrizes.length; i++) {
+            const prizes = getPrizesForLevel(currentLevel);
+            const sliceAngle = (2 * Math.PI) / prizes.length;
+            ctx.clearRect(0,0,500,500);
+            for (let i = 0; i < prizes.length; i++) {
                 ctx.beginPath(); ctx.moveTo(250, 250);
                 ctx.arc(250, 250, 250, i * sliceAngle, (i + 1) * sliceAngle);
                 ctx.fillStyle = prizeColors[i % prizeColors.length]; ctx.fill();
                 ctx.save(); ctx.translate(250, 250); ctx.rotate(i * sliceAngle + sliceAngle / 2);
                 ctx.fillStyle = "white"; ctx.font = "bold 22px Inter";
-                ctx.fillText(levelPrizes[i].split(' ')[1], 120, 10); ctx.restore();
+                ctx.fillText(prizes[i].split(' ')[1], 120, 10); ctx.restore();
             }
         }
 
@@ -356,9 +373,9 @@
             canvas.style.transform = `rotate(${deg}deg)`;
             document.getElementById('spin-btn').disabled = true;
             setTimeout(() => {
-                const prizeArr = getPrizesForLevel(currentLevel);
-                const idx = Math.floor((360 - (deg % 360)) / (360 / prizeArr.length)) % prizeArr.length;
-                document.getElementById('prize-text').innerText = prizeArr[idx];
+                const arr = getPrizesForLevel(currentLevel);
+                const idx = Math.floor((360 - (deg % 360)) / (360 / arr.length)) % arr.length;
+                document.getElementById('prize-text').innerText = arr[idx];
                 document.getElementById('spin-btn').classList.add('hidden');
                 document.getElementById('spin-result').classList.remove('hidden');
                 document.getElementById('spin-btn').disabled = false;
@@ -378,16 +395,11 @@
 
         function toggleUserMenu() { document.getElementById('user-menu-dropdown').classList.toggle('active'); }
         function logout() { localStorage.removeItem('gucci_session'); location.reload(); }
-        function openMenu() { 
-            const list = document.getElementById('menu-list'); list.innerHTML = '';
-            for(let i=1; i<=maxLevel; i++){
-                list.innerHTML += `<div class="font-serif text-xl ${i===currentLevel?'font-bold':'text-gray-300'}">AGENDA ${i}</div>`;
-            }
-            document.getElementById('agenda-menu').classList.remove('hidden');
-        }
+        function openMenu() { openLangModal(); }
         function closeMenu() { document.getElementById('agenda-menu').classList.add('hidden'); }
         function openLangModal() { document.getElementById('lang-modal').classList.remove('hidden'); }
         function closeModals() { document.getElementById('lang-modal').classList.add('hidden'); }
+        function changeLanguage(l) { currentLang = l; document.getElementById('current-lang-label').innerText = l.toUpperCase(); closeModals(); loadLevel(currentLevel); }
         function goBack() { document.getElementById('confirmation-view').classList.add('hidden'); document.getElementById('product-list-view').classList.remove('hidden'); }
     </script>
 </body>
