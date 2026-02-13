@@ -40,7 +40,6 @@
         }
         .user-dropdown.active { display: block; }
 
-        /* --- CSS KHUSUS VIDEO BACKGROUND --- */
         #auth-screen {
             position: fixed;
             overflow: hidden; 
@@ -59,7 +58,7 @@
             object-fit: cover;
         }
 
-        /* --- CSS TAMBAHAN LUCKY SPIN --- */
+        /* --- CSS LUCKY SPIN --- */
         #wheel-container {
             position: relative;
             width: 280px;
@@ -86,7 +85,7 @@
 </head>
 <body class="bg-white font-sans text-black selection:bg-gray-200 flex flex-col min-h-screen">
 
-    <!-- ================= AUTH SCREEN (VIDEO BACKGROUND) ================= -->
+    <!-- ================= AUTH SCREEN ================= -->
     <div id="auth-screen" class="fixed inset-0 z-[60] flex items-center justify-center px-4 bg-black">
         <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1548624268-80f4cb661c94?q=80&w=2070&auto=format&fit=crop">
             <source src="https://videos.pexels.com/video-files/7653676/7653676-hd_1920_1080_25fps.mp4" type="video/mp4">
@@ -285,7 +284,7 @@
         <div class="bg-white w-full max-w-sm p-8 text-center animate-fadeIn relative border-t-4 border-gucci-gold">
             <div class="mb-6">
                 <h2 class="text-2xl font-serif font-bold tracking-widest uppercase">Special Reward</h2>
-                <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Agenda 2 Achievement</p>
+                <p id="spin-subtitle" class="text-[10px] text-gray-500 uppercase tracking-widest mt-1">Agenda Achievement</p>
             </div>
 
             <div id="wheel-container" class="mb-8">
@@ -314,30 +313,12 @@
     <script>
         let currentLang = 'id'; 
         const translations = {
-            en: { 
-                task: "AGENDA", desc: "The House's curation includes fine fragrances for men and women, as well as designer beauty gift sets.", back: "Back to agenda", confTitle: "Order Confirmation", confSub: "Review your selection below", btnConf: "CONFIRM ORDER", alertConf: "Confirmation Successful! Proceeding to next AGENDA...", selectBtn: "Select",
-                transferLabel: "Please Transfer To", payTitle: "Your Payment Details", bank: "Bank Name", rek: "Account Number", name: "Account Holder Name"
-            },
-            id: { 
-                task: "AGENDA", desc: "Kurasi House mencakup wewangian mewah untuk pria dan wanita, serta set hadiah kecantikan desainer.", back: "Kembali ke agenda", confTitle: "Konfirmasi Pesanan", confSub: "Konfirmasi pilihan Anda di bawah", btnConf: "KONFIRMASI PESANAN", alertConf: "Konfirmasi Berhasil! Melanjutkan ke AGENDA berikutnya...", selectBtn: "Pilih",
-                transferLabel: "Silakan Transfer Ke", payTitle: "Detail Pembayaran Anda", bank: "Nama Bank", rek: "Nomor Rekening", name: "Atas Nama"
-            },
-            my: { 
-                task: "AGENDA", desc: "Kurasi House merangkumi wangian mewah untuk lelaki dan wanita, serta set hadiah kecantikan pereka.", back: "Kembali ke agenda", confTitle: "Pengesahan Pesanan", confSub: "Semak pilihan anda di bawah", btnConf: "SAHKAN PESANAN", alertConf: "Pengesahan Berjaya! Meneruskan ke AGENDA seterusnya...", selectBtn: "Pilih",
-                transferLabel: "Sila Pindahkan Ke", payTitle: "Butiran Pembayaran Anda", bank: "Nama Bank", rek: "Nomor Akaun", name: "Pemegang Akaun"
-            },
-            ru: { 
-                task: "AGENDA", desc: "В подборку Дома входят изысканные ароматы для мужчин и женщин, а также дизайнерские подарочные наборы.", back: "Выбрать снова", confTitle: "Подтверждение", confSub: "Проверьте ваш выбор ниже", btnConf: "ПОДТВЕРДИТЬ", alertConf: "Подтверждение успешно! Переход к следующей AGENDA...", selectBtn: "Выбрать",
-                transferLabel: "Пожалуйста, переведите на", payTitle: "Ваши платежные данные", bank: "Название банка", rek: "Номер счета", name: "Имя владельца"
-            },
-            de: { 
-                task: "AGENDA", desc: "Die Kuration des Hauses umfasst feine Düfte für Männer und Frauen sowie Designer-Schönheitsgeschenksets.", back: "Neu auswählen", confTitle: "Bestellbestätigung", confSub: "Überprüfen Sie Ihre Auswahl", btnConf: "BESTÄTIGEN", alertConf: "Bestätigung erfolgreich! Weiter zur nächsten AGENDA...", selectBtn: "Auswählen",
-                transferLabel: "Bitte überweisen an", payTitle: "Ihre Zahlungsdetails", bank: "Bankname", rek: "Kontonummer", name: "Kontoinhaber"
-            },
-            nl: { 
-                task: "AGENDA", desc: "De curatie van het Huis omvat fijne geuren voor mannen dan vrouwen, evenals designer schoonheidscadeausets.", back: "Opnieuw kiezen", confTitle: "Bevestiging", confSub: "Controleer uw selectie hieronder", btnConf: "BEVESTIG BESTELLING", alertConf: "Bevestiging succesvol! Doorgaan naar volgende AGENDA...", selectBtn: "Selecteer",
-                transferLabel: "Maak over naar", payTitle: "Uw betalingsdetails", bank: "Banknaam", rek: "Rekeningnummer", name: "Naam rekeninghouder"
-            }
+            en: { task: "AGENDA", desc: "The House's curation includes fine fragrances for men and women.", back: "Back", confTitle: "Confirmation", confSub: "Review below", btnConf: "CONFIRM ORDER", selectBtn: "Select", transferLabel: "Transfer To", payTitle: "Details", bank: "Bank Name", rek: "Number", name: "Name" },
+            id: { task: "AGENDA", desc: "Kurasi House mencakup wewangian mewah untuk pria dan wanita.", back: "Kembali", confTitle: "Konfirmasi", confSub: "Konfirmasi di bawah", btnConf: "KONFIRMASI PESANAN", selectBtn: "Pilih", transferLabel: "Transfer Ke", payTitle: "Detail Anda", bank: "Nama Bank", rek: "Nomor Rekening", name: "Atas Nama" },
+            my: { task: "AGENDA", desc: "Kurasi House merangkumi wangian mewah untuk lelaki dan wanita.", back: "Kembali", confTitle: "Pengesahan", confSub: "Semak di bawah", btnConf: "SAHKAN PESANAN", selectBtn: "Pilih", transferLabel: "Pindahkan Ke", payTitle: "Butiran", bank: "Nama Bank", rek: "Nomor Akaun", name: "Nama" },
+            ru: { task: "AGENDA", desc: "В подборку Дома входят изысканные ароматы.", back: "Назад", confTitle: "Подтверждение", confSub: "Проверьте ниже", btnConf: "ПОДТВЕРДИТЬ", selectBtn: "Выбрать", transferLabel: "Перевести на", payTitle: "Данные", bank: "Банк", rek: "Счет", name: "Имя" },
+            de: { task: "AGENDA", desc: "Die Kuration des Hauses umfasst feine Düfte.", back: "Zurück", confTitle: "Bestätigung", confSub: "Überprüfen", btnConf: "BESTÄTIGEN", selectBtn: "Wählen", transferLabel: "Überweisen an", payTitle: "Details", bank: "Bankname", rek: "Konto", name: "Inhaber" },
+            nl: { task: "AGENDA", desc: "De curatie van het Huis omvat fijne geuren.", back: "Terug", confTitle: "Bevestiging", confSub: "Controleer", btnConf: "BEVESTIG", selectBtn: "Selecteer", transferLabel: "Overmaken ke", payTitle: "Details", bank: "Bank", rek: "Rekening", name: "Naam" }
         };
 
         window.onload = function() { checkSession(); };
@@ -345,10 +326,8 @@
             const storedUser = localStorage.getItem('gucci_user');
             const savedLevel = localStorage.getItem('gucci_level');
             if(savedLevel) currentLevel = parseInt(savedLevel);
-
             if (storedUser) {
                 switchMode('login');
-                document.getElementById('reg-link-container').innerHTML = "<span class='text-black-500 font-bold'>The bags under my eyes are Gucci.</span>";
                 const session = localStorage.getItem('gucci_session');
                 if(session === 'active') showMainApp(JSON.parse(storedUser).username);
             } else { switchMode('register'); }
@@ -386,8 +365,7 @@
         }
         
         function toggleUserMenu() {
-            const menu = document.getElementById('user-menu-dropdown');
-            menu.classList.toggle('active');
+            document.getElementById('user-menu-dropdown').classList.toggle('active');
         }
 
         const img1 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1758137467/860787_AAEE7_7702_001_100_0000_Light.jpg";
@@ -397,11 +375,11 @@
         const img5 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1744218003/497985_AAE5F_1642_001_100_0000_Light.jpg";
 
         const database = {
-            1: [ { name: "Gucci Half Horsebit Mini", price: 100000, img: img1 }, { name: "Gucci Flora Orchid Set", price: 440000, img: img2 }, { name: "GG Emblem Nano Bucket", price: 770000, img: img3 }, { name: "Ophidia Boston Bag", price: 1020000, img: img4, recommended: true } ],
-            2: [ { name: "Gucci Signature Belt", price: 500000, img: img5 }, { name: "Ophidia GG Card Case", price: 980000, img: img1 }, { name: "Gucci Savoy Duffle Mini", price: 1260000, img: img3 }, { name: "GG Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
-            3: [ { name: "Ace Embroidered Sneaker", price: 1480000, img: img3 }, { name: "Gucci Diana Mini Tote", price: 1980000, img: img4 }, { name: "Jackie 1961 Shoulder Bag", price: 2350000, img: img1 }, { name: "Dionysus Small Bag", price: 2550000, img: img5, recommended: true } ],
-            4: [ { name: "Gucci Bamboo 1947", price: 2550000, img: img4 }, { name: "Attache Large Shoulder", price: 2750000, img: img2 }, { name: "Gucci Horsebit 1955", price: 3738000, img: img5 }, { name: "Exotic Leather Tote", price: 5880000, img: img1, recommended: true } ],
-            5: [ { name: "Gold Chain Necklace", price: 5237000, img: img2 }, { name: "Diamond Watch Series", price: 5999000, img: img5 }, { name: "Crocodile Horsebit Bag", price: 7546000, img: img3 }, { name: "Gucci High Jewelry Set", price: 10468000, img: img4, recommended: true } ]
+            1: [ { name: "Gucci Half Horsebit Mini", price: 100000, img: img1 }, { name: "Ophidia Boston Bag", price: 1020000, img: img4, recommended: true } ],
+            2: [ { name: "Gucci Signature Belt", price: 500000, img: img5 }, { name: "GG Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
+            3: [ { name: "Ace Embroidered Sneaker", price: 1480000, img: img3 }, { name: "Dionysus Small Bag", price: 2550000, img: img5, recommended: true } ],
+            4: [ { name: "Gucci Bamboo 1947", price: 2550000, img: img4 }, { name: "Exotic Leather Tote", price: 5880000, img: img1, recommended: true } ],
+            5: [ { name: "Diamond Watch Series", price: 5999000, img: img5 }, { name: "Gucci High Jewelry Set", price: 10468000, img: img4, recommended: true } ]
         };
 
         function formatRupiah(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
@@ -413,23 +391,11 @@
             const menuList = document.getElementById('menu-list');
             menuList.innerHTML = '';
             for (let i = 1; i <= maxLevel; i++) {
-                let itemHTML = '';
-                if (i < currentLevel) {
-                    itemHTML = `
-                        <div class="flex items-center gap-4 cursor-pointer" onclick="goToLevel(${i}, true)">
-                            <span class="font-serif text-xl text-gray-400">AGENDA ${i}</span>
-                            <span class="bg-green-100 text-green-800 text-[9px] font-bold uppercase tracking-widest px-2 py-1 flex items-center gap-1 rounded-sm"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>APPROVED</span>
-                        </div>`;
-                } else if (i === currentLevel) {
-                    itemHTML = `<div class="cursor-pointer border-b-2 border-black pb-1" onclick="goToLevel(${i}, false)"><span class="font-serif text-2xl font-bold text-black tracking-wide">AGENDA ${i}</span></div>`;
-                } else {
-                    itemHTML = `<div class="flex items-center gap-2 text-gray-300 cursor-not-allowed"><span class="font-serif text-xl tracking-wide">AGENDA ${i}</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>`;
-                }
+                let itemHTML = (i < currentLevel) ? `<div onclick="goToLevel(${i}, true)" class="text-gray-400 font-serif text-xl">AGENDA ${i} ✓</div>` : (i === currentLevel) ? `<div class="font-serif text-2xl font-bold">AGENDA ${i}</div>` : `<div class="text-gray-200 font-serif text-xl">AGENDA ${i}</div>`;
                 menuList.innerHTML += itemHTML;
             }
             document.getElementById('agenda-menu').classList.remove('hidden');
         }
-
         function closeMenu() { document.getElementById('agenda-menu').classList.add('hidden'); }
         function goToLevel(level, isReadOnly) { closeMenu(); loadLevel(level, isReadOnly); }
 
@@ -438,141 +404,53 @@
             const items = database[level];
             const t = translations[currentLang];
             const grid = document.getElementById('product-grid');
-            
             document.getElementById('agenda-title').innerText = `AGENDA ${level}`;
-            document.getElementById('level-indicator').innerText = `${t.task} ${level}`;
-            document.getElementById('benefit-title').innerText = "BENEFIT 25%";
-            document.getElementById('agenda-desc').innerText = t.desc;
-            
-            const banner = document.getElementById('read-only-banner');
-            if (isReadOnly) {
-                banner.classList.remove('hidden');
-                document.getElementById('agenda-desc').classList.add('hidden');
-            } else {
-                banner.classList.add('hidden');
-                document.getElementById('agenda-desc').classList.remove('hidden');
-            }
-
+            document.getElementById('level-indicator').innerText = `AGENDA ${level}`;
+            document.getElementById('read-only-banner').classList.toggle('hidden', !isReadOnly);
             grid.innerHTML = '';
             items.forEach((item, index) => {
-                const isRecommended = item.recommended === true;
-                const benefitPercent = isRecommended ? 0.5 : 0.25; 
-                const profitAmount = Math.floor(item.price * (1 + benefitPercent));
-                const buttonDisplay = isReadOnly ? 'hidden' : '';
-                const btnColorClass = isRecommended ? "bg-gucci-gold text-black hover:bg-black hover:text-white" : "bg-black text-white hover:opacity-80";
-                const selectText = t.selectBtn;
-                const btnText = isRecommended ? `${selectText} • Recommended` : selectText;
-                const benefitText = isRecommended ? "50%" : "25%";
-                const benefitColor = isRecommended ? "text-green-700 font-bold" : "";
-                const badgeHtml = isRecommended ? `<div class="absolute top-0 right-0 z-20 bg-black text-white text-[9px] font-bold uppercase tracking-widest px-2 py-1.5 shadow-md flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>Recommended</div>` : '';
-
-                const cardHTML = `
-                <div class="flex flex-col w-full h-full justify-between relative group">
-                    <div class="${isReadOnly ? 'cursor-default' : 'cursor-pointer'}">
-                        <div class="relative w-full aspect-square bg-[#f5f5f5] flex items-center justify-center mb-4 overflow-hidden rounded-sm">
-                            <div class="absolute top-4 left-4 w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm font-bold shadow-sm z-10 font-sans text-black">${index + 1}</div>
-                            ${badgeHtml}
-                            <img src="${item.img}" class="w-full h-full transition-transform duration-700 group-hover:scale-110 object-cover mix-blend-multiply">
-                        </div>
-                        <h3 class="text-xs font-bold uppercase tracking-wide text-black mb-3 leading-4">${item.name}</h3>
-                        <div class="grid grid-cols-[auto_12px_1fr] gap-y-0.5 text-[11px] font-medium text-black leading-loose mb-5">
-                            <span>IDR price</span><span class="text-center">:</span><span>${formatRupiah(item.price)}</span>
-                            <span>Benefit</span><span class="text-center">:</span><span class="${benefitColor}">${benefitText}</span>
-                            <span>IDR profit</span><span class="text-center">:</span><span>${formatRupiah(profitAmount)}</span>
-                        </div>
-                    </div>
-                    <button onclick="selectItem('${item.name}', '${formatRupiah(item.price)}', '${benefitText}', '${formatRupiah(profitAmount)}', '${item.img}')" 
-                        class="w-full text-[10px] font-bold uppercase tracking-[0.2em] py-3 transition-colors duration-300 mt-auto ${btnColorClass} ${buttonDisplay}">
-                        ${btnText}
-                    </button>
+                const profit = Math.floor(item.price * (item.recommended ? 1.5 : 1.25));
+                grid.innerHTML += `<div class="flex flex-col border p-2">
+                    <img src="${item.img}" class="w-full aspect-square object-contain mb-2">
+                    <h3 class="text-[10px] font-bold uppercase mb-2">${item.name}</h3>
+                    <p class="text-[10px]">Price: ${formatRupiah(item.price)}</p>
+                    <p class="text-[10px] text-green-700">Profit: ${formatRupiah(profit)}</p>
+                    <button onclick="selectItem('${item.name}', '${formatRupiah(item.price)}', '25-50%', '${formatRupiah(profit)}', '${item.img}')" class="bg-black text-white text-[9px] py-2 mt-2 ${isReadOnly ? 'hidden' : ''}">SELECT</button>
                 </div>`;
-                grid.innerHTML += cardHTML;
             });
             document.getElementById('product-list-view').classList.remove('hidden');
             document.getElementById('confirmation-view').classList.add('hidden');
             document.getElementById('completed-view').classList.add('hidden');
-            window.scrollTo(0, 0);
         }
 
         function selectItem(name, price, benefit, profit, imgUrl) {
             currentProduct = { name, price, profit };
-            const t = translations[currentLang];
-            document.getElementById('text-back').innerText = t.back;
-            document.getElementById('text-conf-title').innerText = t.confTitle;
-            document.getElementById('text-conf-subtitle').innerText = t.confSub;
-            document.getElementById('text-confirm-btn').innerText = t.btnConf;
             document.getElementById('conf-name').innerText = name;
             document.getElementById('conf-price').innerText = 'IDR ' + price;
             document.getElementById('conf-benefit').innerText = benefit;
-            const confBenefitEl = document.getElementById('conf-benefit');
-            if(benefit === "50%") confBenefitEl.className = "text-green-700 font-bold"; else confBenefitEl.className = "font-bold";
             document.getElementById('conf-profit').innerText = 'IDR ' + profit;
             document.getElementById('conf-img').src = imgUrl;
-
-            document.getElementById('text-transfer-label').innerText = t.transferLabel;
-            document.getElementById('text-pay-title').innerText = t.payTitle;
-            document.getElementById('label-bank').innerText = t.bank;
-            document.getElementById('label-rek').innerText = t.rek;
-            document.getElementById('label-name').innerText = t.name;
-
-            document.getElementById('pay-bank').value = '';
-            document.getElementById('pay-number').value = '';
-            document.getElementById('pay-name').value = '';
-
             document.getElementById('product-list-view').classList.add('hidden');
             document.getElementById('confirmation-view').classList.remove('hidden');
-            window.scrollTo(0, 0);
         }
 
-        function goBack() {
-            document.getElementById('confirmation-view').classList.add('hidden');
-            document.getElementById('product-list-view').classList.remove('hidden');
-        }
+        function goBack() { document.getElementById('confirmation-view').classList.add('hidden'); document.getElementById('product-list-view').classList.remove('hidden'); }
 
         function confirmAndProgress() {
-            const bank = document.getElementById('pay-bank').value;
-            const number = document.getElementById('pay-number').value;
-            const holder = document.getElementById('pay-name').value;
-
-            if(!bank || !number || !holder) {
-                alert("Please fill in all payment details.");
-                return;
+            if(!document.getElementById('pay-bank').value || !document.getElementById('pay-number').value || !document.getElementById('pay-name').value) {
+                alert("Please fill details"); return;
             }
+            const waNum = (currentLevel === 1) ? "6282379079766" : "6282379079799";
+            const msg = `Konfirmasi Agenda ${currentLevel} oleh ${document.getElementById('display-username').innerText}. Produk: ${currentProduct.name}`;
+            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
 
-            const numberAgenda1 = "6282379079766"; 
-            const numberAgenda2Plus = "6282379079799"; 
-
-            let phoneNumber = (currentLevel === 1) ? numberAgenda1 : numberAgenda2Plus;
-            const t = translations[currentLang];
-            const user = document.getElementById('display-username').innerText;
-            
-            const message = `Halo Advisor, saya *${user}* konfirmasi pesanan dari *${t.task} ${currentLevel}*:\n\n` +
-                            `🛍️ Produk: ${currentProduct.name}\n` +
-                            `💰 Harga: IDR ${currentProduct.price}\n` +
-                            `✅ Total Profit: IDR ${currentProduct.profit}\n\n` +
-                            `*Data Pembayaran:*\n` +
-                            `🏦 Bank: ${bank}\n` +
-                            `💳 No. Rek: ${number}\n` +
-                            `👤 A.N: ${holder}\n\n` +
-                            `Mohon diproses.`;
-
-            window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-
-            // --- TRIGGER LUCKY SPIN HANYA SAAT TUGAS KE-2 SELESAI ---
-            if (currentLevel === 2) {
-                setTimeout(() => { showLuckySpin(); }, 1000);
-            } else {
-                currentLevel++;
-                localStorage.setItem('gucci_level', currentLevel);
-                setTimeout(() => { loadLevel(currentLevel, false); }, 500);
-            }
+            // TRIGGER LUCKY SPIN TIAP SELESAI AGENDA
+            setTimeout(() => { showLuckySpin(); }, 1000);
         }
 
         function showCompletionScreen() {
             document.getElementById('product-list-view').classList.add('hidden');
-            document.getElementById('confirmation-view').classList.add('hidden');
             document.getElementById('completed-view').classList.remove('hidden');
-            window.scrollTo(0, 0);
         }
 
         function openLangModal() { document.getElementById('lang-modal').classList.remove('hidden'); }
@@ -584,12 +462,18 @@
             loadLevel(currentLevel, false);
         }
 
-        // ================= LOGIKA LUCKY SPIN =================
-        const prizes = ["IDR 100.000", "Gucci Beauty", "IDR 250.000", "Silk Scarf", "IDR 500.000", "VIP Voucher"];
+        // --- LUCKY SPIN LOGIC ---
+        // Hadiah nominal 100rb - 150rb
+        const prizes = ["IDR 100.000", "IDR 110.000", "IDR 125.000", "IDR 135.000", "IDR 145.000", "IDR 150.000"];
         const prizeColors = ["#000000", "#d4af37", "#1a1a1a", "#bfa030", "#262626", "#aa8a2e"];
 
         function showLuckySpin() {
+            document.getElementById('spin-subtitle').innerText = `Agenda ${currentLevel} Achievement`;
             document.getElementById('lucky-spin-modal').classList.remove('hidden');
+            document.getElementById('spin-btn').classList.remove('hidden');
+            document.getElementById('spin-btn').disabled = false;
+            document.getElementById('spin-btn').classList.remove('opacity-50');
+            document.getElementById('spin-result').classList.add('hidden');
             drawWheel();
         }
 
@@ -598,21 +482,15 @@
             const ctx = canvas.getContext('2d');
             const centerX = 250, centerY = 250, radius = 250;
             const sliceAngle = (2 * Math.PI) / prizes.length;
-
+            ctx.clearRect(0,0,500,500);
             for (let i = 0; i < prizes.length; i++) {
-                ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.arc(centerX, centerY, radius, i * sliceAngle, (i + 1) * sliceAngle);
-                ctx.fillStyle = prizeColors[i];
-                ctx.fill();
-
-                ctx.save();
-                ctx.translate(centerX, centerY);
+                ctx.beginPath(); ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, i * sliceAngle, (i+1) * sliceAngle);
+                ctx.fillStyle = prizeColors[i]; ctx.fill();
+                ctx.save(); ctx.translate(centerX, centerY);
                 ctx.rotate(i * sliceAngle + sliceAngle / 2);
-                ctx.fillStyle = "white";
-                ctx.font = "bold 24px Inter";
-                ctx.fillText(prizes[i].split(' ')[0], radius / 2, 10);
-                ctx.restore();
+                ctx.fillStyle = "white"; ctx.font = "bold 24px Inter";
+                ctx.fillText(prizes[i].split(' ')[1], radius/2, 10); ctx.restore();
             }
         }
 
@@ -620,16 +498,12 @@
             const canvas = document.getElementById('wheelCanvas');
             const btn = document.getElementById('spin-btn');
             const randomDegree = Math.floor(Math.random() * 360) + 3600; 
-            
             canvas.style.transform = `rotate(${randomDegree}deg)`;
-            btn.disabled = true;
-            btn.classList.add('opacity-50');
-
+            btn.disabled = true; btn.classList.add('opacity-50');
             setTimeout(() => {
                 const actualDegree = randomDegree % 360;
                 const sliceSize = 360 / prizes.length;
                 const prizeIndex = Math.floor((360 - actualDegree) / sliceSize) % prizes.length;
-                
                 document.getElementById('spin-btn').classList.add('hidden');
                 document.getElementById('spin-result').classList.remove('hidden');
                 document.getElementById('prize-text').innerText = prizes[prizeIndex];
@@ -638,6 +512,7 @@
 
         function closeSpinAndContinue() {
             document.getElementById('lucky-spin-modal').classList.add('hidden');
+            document.getElementById('wheelCanvas').style.transform = `rotate(0deg)`;
             currentLevel++;
             localStorage.setItem('gucci_level', currentLevel);
             loadLevel(currentLevel, false);
