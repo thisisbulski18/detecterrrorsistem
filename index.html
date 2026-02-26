@@ -186,8 +186,8 @@
         const maxLevel = 5;
 
         const getPrizesForLevel = (lv) => {
-            if (lv === 1) return ["IDR 25.000", "IDR 40.000", "IDR 55.000", "IDR 75.000", "IDR 85.000", "IDR 100.000"];
-            if (lv === 2) return ["IDR 50.000", "IDR 75.000", "IDR 100.000", "IDR 115.000", "IDR 135.000", "IDR 150.000"];
+            if (lv === 1) return ["IDR 25.000", "IDR 50.000", "IDR 25.000", "IDR 50.000", "IDR 50.000", "IDR 25.000"];
+            if (lv === 2) return ["IDR 50.000", "IDR 75.000", "IDR 50.000", "IDR 75.000", "IDR 50.000", "IDR 75.000"];
             if (lv === 3) return ["IDR 250.000", "IDR 450.000", "IDR 600.000", "IDR 800.000", "IDR 900.000", "IDR 1.000.000"];
             return ["IDR 500k", "IDR 1M", "JACKPOT"];
         };
@@ -200,11 +200,11 @@
         const img5 = "https://media.gucci.com/style/HEXFBFBFB_South_0_160_640x640/1744218003/497985_AAE5F_1642_001_100_0000_Light.jpg";
 
         const database = {
-            1: [ { name: "Gucci Half Horsebit Mini", price: 100000, img: img1 }, { name: "Gucci Flora Orchid Set", price: 300000, img: img2 }, { name: "GG Emblem Nano Bucket", price: 550000, img: img3 }, { name: "Ophidia Boston Bag", price: 890000, img: img4, recommended: true } ],
-            2: [ { name: "Gucci Signature Belt", price: 440000, img: img5 }, { name: "Ophidia GG Card Case", price: 828000, img: img1 }, { name: "Gucci Savoy Duffle Mini", price: 1500000, img: img3 }, { name: "GG Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
-            3: [ { name: "Ace Embroidered Sneaker", price: 980000, img: img3 }, { name: "Gucci Diana Mini Tote", price: 1350000, img: img4 }, { name: "Jackie 1961 Shoulder Bag", price: 2550000, img: img1 }, { name: "Dionysus Small Bag", price: 5880000, img: img5, recommended: true } ],
-            4: [ { name: "Gucci Bamboo 1947", price: 1980000, img: img4 }, { name: "Attache Large Shoulder", price: 2350000, img: img2 }, { name: "Gucci Horsebit 1955", price: 3738000, img: img5 }, { name: "Exotic Leather Tote", price: 5880000, img: img1, recommended: true } ],
-            5: [ { name: "Gold Chain Necklace", price: 5237000, img: img2 }, { name: "Diamond Watch Series", price: 5999000, img: img5 }, { name: "Crocodile Horsebit Bag", price: 7546000, img: img3 }, { name: "Gucci High Jewelry Set", price: 10468000, img: img4, recommended: true } ]
+            1: [ { name: "Gucci Half Horsebit Mini", price: 100000, img: img1 }, { name: "Gucci Flora Orchid Set", price: 440000, img: img2 }, { name: "GG Emblem Nano Bucket", price: 770000, img: img3 }, { name: "Ophidia Boston Bag", price: 1020000, img: img4, recommended: true } ],
+            2: [ { name: "Gucci Signature Belt", price: 500000, img: img5 }, { name: "Ophidia GG Card Case", price: 1280000, img: img1 }, { name: "Gucci Savoy Duffle Mini", price: 1480000, img: img3 }, { name: "GG Retro Sunglasses", price: 2100000, img: img4, recommended: true } ],
+            3: [ { name: "Ace Embroidered Sneaker", price: 1980000, img: img3 }, { name: "Gucci Diana Mini Tote", price: 2350000, img: img4 }, { name: "Jackie 1961 Shoulder Bag", price: 2550000, img: img1 }, { name: "Dionysus Small Bag", price: 5880000, img: img5, recommended: true } ],
+            4: [ { name: "Gucci Bamboo 1947", price: 3550000, img: img4 }, { name: "Attache Large Shoulder", price: 5550000, img: img2 }, { name: "Gucci Horsebit 1955", price: 8250000, img: img5 }, { name: "Exotic Leather Tote", price: 10550000, img: img1, recommended: true } ],
+            5: [ { name: "Gold Chain Necklace", price: 10750000, img: img2 }, { name: "Diamond Watch Series", price: 12550000, img: img5 }, { name: "Crocodile Horsebit Bag", price: 17250000, img: img3 }, { name: "Gucci High Jewelry Set", price: 20650000, img: img4, recommended: true } ]
         };
 
         window.onload = checkSession;
@@ -372,3 +372,4 @@
     </script>
 </body>
 </html>
+
