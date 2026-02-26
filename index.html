@@ -130,11 +130,11 @@
                         <div class="flex justify-between"><span>Benefit</span><span class="text-green-600 font-bold">25-50%</span></div>
                         <div class="flex justify-between text-sm font-bold pt-2 border-t"><span>Total Profit</span><span id="conf-profit"></span></div>
                     </div>
-                    <div class="bg-yellow-50/50 border border-yellow-100 p-6 text-center mb-8">
+                    <div class="bg-yellow-50/50 border border-yellow-100 p-6 text-center mb-8 shadow-sm">
                         <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Transfer To</p>
-                        <p class="text-xs font-bold">Bank Negara Indonesia</p>
-                        <p class="text-2xl font-serif font-bold text-gucci-gold my-1 tracking-widest">2018-725-219</p>
-                        <p class="text-[10px] font-bold uppercase">A.N RICKI RAHMADANI</p>
+                        <p class="text-xs font-bold">Bank Rakyat Indonesia</p>
+                        <p class="text-2xl font-serif font-bold text-gucci-gold my-1 tracking-widest">530501011199504</p>
+                        <p class="text-[10px] font-bold uppercase">A.N MANGAPUL SINAGA</p>
                     </div>
                     <div class="space-y-4 mb-8">
                         <input type="text" id="pay-bank" class="w-full border-b bg-transparent py-2 text-xs focus:outline-none" placeholder="Bank Name (Sender)">
@@ -200,7 +200,7 @@
         // --- Logika Spin Hadiah Dinamis ---
         const getPrizesForLevel = (lv) => {
             if (lv === 1) return ["IDR 25.000", "IDR 40.000", "IDR 55.000", "IDR 75.000", "IDR 85.000", "IDR 100.000"];
-            if (lv === 2) return ["IDR 50.000", "IDR 75.000", "IDR 100.000", "IDR 115.000", "IDR 135.000", "IDR 150.000"];
+            if (lv === 2) return ["IDR 50.000", "IDR 75.000", "IDR 100.000", "IDR 135.000", "IDR 150.000"];
             if (lv === 3) return ["IDR 250.000", "IDR 450.000", "IDR 600.000", "IDR 800.000", "IDR 900.000", "IDR 1.000.000"];
             return ["IDR 500.000", "IDR 1.000.000", "JACKPOT"];
         };
@@ -300,12 +300,17 @@
 
         function confirmAndProgress() {
             if(!document.getElementById('pay-bank').value || !document.getElementById('pay-name').value) return alert("Complete data!");
-            const wa = (currentLevel === 1) ? "6282379079766" : "6282379079799";
+
+            // --- PENGATURAN NOMOR WHATSAPP ---
+            const waNumberAgenda1 = "6282379079766"; // GANTI NOMOR AGENDA 1 DI SINI
+            const waNumberAgendaLain = "6282379079799"; // GANTI NOMOR AGENDA 2, 3, DST DI SINI
+
+            const wa = (currentLevel === 1) ? waNumberAgenda1 : waNumberAgendaLain;
+
             window.open(`https://wa.me/${wa}?text=Confirm+Agenda+${currentLevel}+by+${document.getElementById('display-username').innerText}`, '_blank');
             setTimeout(showLuckySpin, 1500);
         }
 
-        // --- FIXED SPIN LOGIC ---
         function showLuckySpin() {
             document.getElementById('spin-subtitle').innerText = `Achievement Agenda ${currentLevel}`;
             document.getElementById('lucky-spin-modal').classList.remove('hidden');
@@ -323,7 +328,6 @@
             ctx.clearRect(0,0,500,500);
             for (let i = 0; i < prizes.length; i++) {
                 ctx.beginPath(); ctx.moveTo(250, 250);
-                // Draw starting from -90deg (Top)
                 ctx.arc(250, 250, 250, i * sliceAngle - Math.PI/2, (i + 1) * sliceAngle - Math.PI/2);
                 ctx.fillStyle = prizeColors[i % prizeColors.length]; ctx.fill();
                 ctx.save(); ctx.translate(250, 250); 
